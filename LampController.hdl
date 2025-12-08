@@ -1,0 +1,7 @@
+CHIP LampController {
+    IN A, B, C;
+    OUT ONOFF;
+    PARTS:   
+    Xor(a=A, b=B, out=xorAB);
+    Xor(a=xorAB, b=C, out=ONOFF);
+}

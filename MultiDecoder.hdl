@@ -1,0 +1,10 @@
+CHIP MultiDecoder {
+    IN A[4], B[4];
+    OUT DigitA[7], DigitB[7];
+    PARTS:
+    Decoder(in=A, a=DigitA[0], b=DigitA[1], c=DigitA[2], 
+            d=DigitA[3], e=DigitA[4], f=DigitA[5], g=DigitA[6]);
+
+    Decoder(in=B, a=DigitB[0], b=DigitB[1], c=DigitB[2], 
+            d=DigitB[3], e=DigitB[4], f=DigitB[5], g=DigitB[6]);
+}
