@@ -3,32 +3,48 @@ CHIP Decoder {
     OUT a,b,c,d,e,f,g;
     PARTS:
 
-    Nand(a=in[3], b=in[2], out=temp1);
-    Nand(a=temp1, b=in[1], out=temp2);
+    Not(in=in[3], out=not_in3);
+    Nand(a=not_in3, b=in[2], out=temp1);
+    Not(in=in[1], out=not_in1);
+    Nand(a=temp1, b=not_in1, out=temp2);
     Nand(a=temp2, b=in[0], out=a);
 
-    Nand(a=in[3], b=in[2], out=temp3);
-    Nand(a=temp3, b=~in[1], out=temp4);
+    Not(in=in[3], out=not_in3_1);
+    Nand(a=not_in3_1, b=in[2], out=temp3);
+    Not(in=in[1], out=not_in1_1);
+    Nand(a=temp3, b=not_in1_1, out=temp4);
     Nand(a=temp4, b=in[0], out=b);
 
-    Nand(a=~in[3], b=in[3], out=temp5);
-    Nand(a=temp5, b=~in[2], out=temp6);
+    Not(in=in[3], out=not_in3_2);
+    Nand(a=not_in3_2, b=in[3], out=temp5);
+    Not(in=in[2], out=not_in2);
+    Nand(a=temp5, b=not_in2, out=temp6);
     Nand(a=temp6, b=in[0], out=c);
 
-    Nand(a=in[3], b=~in[2], out=temp7);
-    Nand(a=temp7, b=in[1], out=temp8);
+    Not(in=in[2], out=not_in2_1);
+    Nand(a=in[3], b=not_in2_1, out=temp7);
+    Not(in=in[1], out=not_in1_2);
+    Nand(a=temp7, b=not_in1_2, out=temp8);
     Nand(a=temp8, b=in[0], out=d);
 
-    Nand(a=in[3], b=in[2], out=temp9);
-    Nand(a=temp9, b=in[1], out=temp10);
-    Nand(a=temp10, b=~in[0], out=e);
+    Not(in=in[3], out=not_in3_3);
+    Nand(a=not_in3_3, b=in[2], out=temp9);
+    Not(in=in[1], out=not_in1_3);
+    Nand(a=temp9, b=not_in1_3, out=temp10);
+    Not(in=in[0], out=not_in0);
+    Nand(a=temp10, b=not_in0, out=e);
 
-    Nand(a=in[3], b=~in[2], out=temp11);
-    Nand(a=temp11, b=~in[1], out=temp12);
+    Not(in=in[2], out=not_in2_2);
+    Nand(a=in[3], b=not_in2_2, out=temp11);
+    Not(in=in[1], out=not_in1_4);
+    Nand(a=temp11, b=not_in1_4, out=temp12);
     Nand(a=temp12, b=in[0], out=f);
 
-    Nand(a=in[3], b=in[2], out=temp13);
-    Nand(a=temp13, b=~in[1], out=temp14);
-    Nand(a=temp14, b=~in[0], out=g);
+    Not(in=in[3], out=not_in3_4);
+    Nand(a=not_in3_4, b=in[2], out=temp13);
+    Not(in=in[1], out=not_in1_5);
+    Nand(a=temp13, b=not_in1_5, out=temp14);
+    Not(in=in[0], out=not_in0_1);
+    Nand(a=temp14, b=not_in0_1, out=g);
 }
 
