@@ -2,7 +2,9 @@ CHIP DecoderSegment {
     IN in[4];
     OUT c;
     PARTS:
+
     Not(in=in[1], out=notIn1);
+
     Or(a=in[3], b=in[2], out=or1);
     Or(a=or1, b=notIn1, out=or2);
     Or(a=or2, b=in[0], out=c);
