@@ -2,59 +2,33 @@ CHIP Decoder {
     IN in[4];
     OUT a,b,c,d,e,f,g;
     PARTS:
-    Nand(a=in[3], b=in[3], out=not_in3_a);
-    Nand(a=in[2], b=in[2], out=not_in2_a);
-    Nand(a=in[1], b=in[1], out=not_in1_a);
-    Nand(a=in[0], b=in[0], out=not_in0_a);
 
-    Nand(a=..., b=..., out=a);
+    Nand(a=in[3], b=in[2], out=temp1);
+    Nand(a=temp1, b=in[1], out=temp2);
+    Nand(a=temp2, b=in[0], out=a);
 
-    Nand(a=in[3], b=in[3], out=not_in3_b);
-    Nand(a=in[2], b=in[2], out=not_in2_b);
-    Nand(a=in[1], b=in[1], out=not_in1_b);
-    Nand(a=in[0], b=in[0], out=not_in0_b);
+    Nand(a=in[3], b=in[2], out=temp3);
+    Nand(a=temp3, b=~in[1], out=temp4);
+    Nand(a=temp4, b=in[0], out=b);
 
-    Nand(a=..., b=..., out=b);
+    Nand(a=~in[3], b=in[3], out=temp5);
+    Nand(a=temp5, b=~in[2], out=temp6);
+    Nand(a=temp6, b=in[0], out=c);
 
-    Nand(a=in[3], b=in[3], out=not_in3_c);
-    Nand(a=in[2], b=in[2], out=not_in2_c);
-    Nand(a=in[1], b=in[1], out=not_in1_c);
-    Nand(a=in[0], b=in[0], out=not_in0_c);
-    Nand(a=not_in3_c, b=not_in3_c, out=temp1_c);
-    Nand(a=in[3], b=not_in2_c, out=temp2_c);
-    Nand(a=temp2_c, b=temp2_c, out=temp3_c);
-    Nand(a=temp1_c, b=temp3_c, out=temp4_c);
-    Nand(a=in[3], b=in[2], out=temp5_c);
-    Nand(a=temp5_c, b=in[0], out=temp6_c);
-    Nand(a=temp6_c, b=temp6_c, out=temp7_c);
-    Nand(a=temp4_c, b=temp7_c, out=temp8_c);
-    Nand(a=temp8_c, b=temp8_c, out=c);
+    Nand(a=in[3], b=~in[2], out=temp7);
+    Nand(a=temp7, b=in[1], out=temp8);
+    Nand(a=temp8, b=in[0], out=d);
 
-    Nand(a=in[3], b=in[3], out=not_in3_d);
-    Nand(a=in[2], b=in[2], out=not_in2_d);
-    Nand(a=in[1], b=in[1], out=not_in1_d);
-    Nand(a=in[0], b=in[0], out=not_in0_d);
+    Nand(a=in[3], b=in[2], out=temp9);
+    Nand(a=temp9, b=in[1], out=temp10);
+    Nand(a=temp10, b=~in[0], out=e);
 
-    Nand(a=..., b=..., out=d);
+    Nand(a=in[3], b=~in[2], out=temp11);
+    Nand(a=temp11, b=~in[1], out=temp12);
+    Nand(a=temp12, b=in[0], out=f);
 
-    Nand(a=in[3], b=in[3], out=not_in3_e);
-    Nand(a=in[2], b=in[2], out=not_in2_e);
-    Nand(a=in[1], b=in[1], out=not_in1_e);
-    Nand(a=in[0], b=in[0], out=not_in0_e);
-
-    Nand(a=..., b=..., out=e);
-
-    Nand(a=in[3], b=in[3], out=not_in3_f);
-    Nand(a=in[2], b=in[2], out=not_in2_f);
-    Nand(a=in[1], b=in[1], out=not_in1_f);
-    Nand(a=in[0], b=in[0], out=not_in0_f);
-
-    Nand(a=..., b=..., out=f);
-
-    Nand(a=in[3], b=in[3], out=not_in3_g);
-    Nand(a=in[2], b=in[2], out=not_in2_g);
-    Nand(a=in[1], b=in[1], out=not_in1_g);
-    Nand(a=in[0], b=in[0], out=not_in0_g);
-
-    Nand(a=..., b=..., out=g);
+    Nand(a=in[3], b=in[2], out=temp13);
+    Nand(a=temp13, b=~in[1], out=temp14);
+    Nand(a=temp14, b=~in[0], out=g);
 }
+
