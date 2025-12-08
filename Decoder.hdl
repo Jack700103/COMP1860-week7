@@ -7,49 +7,36 @@ CHIP Decoder {
     Not(in=in[2], out=not2);
     Not(in=in[3], out=not3);
 
-    And(a=not3, b=not2, out=a_part1);
-    And(a=in[3], b=in[2], out=a_temp);
-    And(a=a_temp, b=not0, out=a_part2);
-    Or(a=not1, b=a_part1, out=a_or1);
-    Or(a=a_or1, b=a_part2, out=a);
+    And(a=not3, b=not2, out=t1); And(a=t1, b=in[1], out=t2); And(a=t2, b=in[0], out=m1); 
+    And(a=not3, b=in[2], out=t3); And(a=t3, b=not1, out=t4); And(a=t4, b=not0, out=m4); 
+    And(a=in[3], b=not2, out=t5); And(a=t5, b=in[1], out=t6); And(a=t6, b=in[0], out=m11); 
+    And(a=in[3], b=not2, out=t7); And(a=t7, b=not1, out=t8); And(a=t8, b=not0, out=m12); 
+    Or(a=m1, b=m4, out=oa1); Or(a=m11, b=m12, out=oa2); Or(a=oa1, b=oa2, out=na); Not(in=na, out=a);
 
-    And(a=not3, b=not2, out=b_part1);
-    And(a=in[3], b=not2, out=b_temp);
-    And(a=b_temp, b=not0, out=b_part2);
-    Or(a=not1, b=b_part1, out=b_or1);
-    Or(a=b_or1, b=b_part2, out=b);
+    And(a=not3, b=in[2], out=t9); And(a=t9, b=not1, out=t10); And(a=t10, b=in[0], out=m5); 
+    And(a=not3, b=in[2], out=t11); And(a=t11, b=in[1], out=t12); And(a=t12, b=not0, out=m6); 
+    And(a=in[3], b=in[2], out=t13); And(a=t13, b=not1, out=t14); And(a=t14, b=not0, out=m14); 
+    And(a=in[3], b=in[2], out=t15); And(a=t15, b=not1, out=t16); And(a=t16, b=in[0], out=m15); 
+    Or(a=m5, b=m6, out=ob1); Or(a=m14, b=m15, out=ob2); Or(a=ob1, b=ob2, out=nb); Not(in=nb, out=b);
 
-    And(a=not3, b=not2, out=c_part1);
-    And(a=not3, b=not0, out=c_part2);
-    And(a=in[3], b=not1, out=c_part3);
-    Or(a=c_part1, b=c_part2, out=c_or1);
-    Or(a=c_or1, b=c_part3, out=c);
+    And(a=not3, b=not2, out=t17); And(a=t17, b=in[1], out=t18); And(a=t18, b=not0, out=m2); 
+    Or(a=m2, b=m11, out=oc1); Or(a=m12, b=m14, out=oc2); Or(a=oc1, b=oc2, out=oc3); Or(a=oc3, b=m15, out=nc); Not(in=nc, out=c);
 
-    And(a=not1, b=not3, out=d_part1);
-    And(a=not1, b=not2, out=d_part2);
-    And(a=not2, b=not3, out=d_part3);
-    And(a=in[3], b=in[2], out=d_temp);
-    And(a=d_temp, b=not0, out=d_part4);
-    Or(a=d_part1, b=d_part2, out=d_or1);
-    Or(a=d_or1, b=d_part3, out=d_or2);
-    Or(a=d_or2, b=d_part4, out=d);
+    And(a=not3, b=not2, out=t19); And(a=t19, b=not1, out=t20); And(a=t20, b=in[0], out=m1_d); 
+    And(a=not3, b=in[2], out=t21); And(a=t21, b=in[1], out=t22); And(a=t22, b=in[0], out=m7); 
+    And(a=in[3], b=not2, out=t23); And(a=t23, b=in[1], out=t24); And(a=t24, b=not0, out=m13);
+    Or(a=m1_d, b=m4, out=od1); Or(a=m7, b=m11, out=od2); Or(a=od1, b=od2, out=od3); Or(a=od3, b=m13, out=nd); Not(in=nd, out=d);
 
-    And(a=not1, b=not3, out=e_part1);
-    And(a=not2, b=not3, out=e_part2);
-    And(a=in[3], b=not0, out=e_part3);
-    Or(a=e_part1, b=e_part2, out=e_or1);
-    Or(a=e_or1, b=e_part3, out=e);
+    And(a=not3, b=not2, out=t25); And(a=t25, b=in[1], out=t26); And(a=t26, b=in[0], out=m3); 
+    And(a=not3, b=in[2], out=t27); And(a=t27, b=not1, out=t28); And(a=t28, b=in[0], out=m5_e); 
+    And(a=not3, b=in[2], out=t29); And(a=t29, b=in[1], out=t30); And(a=t30, b=in[0], out=m7_e); 
+    And(a=in[3], b=not2, out=t31); And(a=t31, b=not1, out=t32); And(a=t32, b=in[0], out=m9); 
+    Or(a=m1, b=m3, out=oe1); Or(a=m4, b=m5_e, out=oe2); Or(a=m7_e, b=m9, out=oe3); Or(a=oe1, b=oe2, out=oe4); Or(a=oe3, b=m11, out=oe5); Or(a=oe4, b=oe5, out=ne); Not(in=ne, out=e);
 
-    And(a=not1, b=not2, out=f_part1);
-    And(a=not3, b=not0, out=f_part2);
-    And(a=in[3], b=in[1], out=f_part3);
-    Or(a=f_part1, b=f_part2, out=f_or1);
-    Or(a=f_or1, b=f_part3, out=f);
+    And(a=not3, b=not2, out=t33); And(a=t33, b=in[1], out=t34); And(a=t34, b=not0, out=m2_f); 
+    Or(a=m1, b=m2_f, out=of1); Or(a=m3, b=m7, out=of2); Or(a=m11, b=m13, out=of3); Or(a=m14, b=m15, out=of4);
+    Or(a=of1, b=of2, out=of5); Or(a=of3, b=of4, out=of6); Or(a=of5, b=of6, out=nf); Not(in=nf, out=f);
 
-    And(a=not1, b=not3, out=g_part1);
-    And(a=not2, b=not3, out=g_part2);
-    And(a=in[3], b=in[2], out=g_temp);
-    And(a=g_temp, b=not0, out=g_part3);
-    Or(a=g_part1, b=g_part2, out=g_or1);
-    Or(a=g_or1, b=g_part3, out=g);
+    And(a=not3, b=not2, out=t35); And(a=t35, b=not1, out=t36); And(a=t36, b=not0, out=m0); 
+    Or(a=m0, b=m1, out=og1); Or(a=m7, b=m12, out=og2); Or(a=og1, b=og2, out=ng); Not(in=ng, out=g);
 }
