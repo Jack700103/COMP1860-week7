@@ -2,13 +2,8 @@ CHIP DecoderSegment {
     IN in[4];
     OUT c;
     PARTS:
-    And(a=!in[3], b=!in[2], c=!in[1], d=!in[0], out=and1);
-    And(a=!in[3], b=!in[2], c=!in[1], d=in[0], out=and2);
-    And(a=!in[3], b=!in[2], c=in[1], d=in[0], out=and3);
-    And(a=!in[3], b=in[2], c=!in[1], d=in[0], out=and4);
-    And(a=!in[3], b=in[2], c=in[1], d=!in[0], out=and5);
-    And(a=!in[3], b=in[2], c=in[1], d=in[0], out=and6);
-    And(a=in[3], b=!in[2], c=!in[1], d=!in[0], out=and7);
-    And(a=in[3], b=!in[2], c=!in[1], d=in[0], out=and8);
-    Or(a=and1, b=and2, c=and3, d=and4, e=and5, f=and6, g=and7, h=and8, out=c);
+    Not(in=in[1], out=notIn1);
+    Or(a=in[3], b=in[2], out=or1);
+    Or(a=or1, b=notIn1, out=or2);
+    Or(a=or2, b=in[0], out=c);
 }
