@@ -2,34 +2,13 @@ CHIP DecoderSegment {
     IN in[4];
     OUT c;
     PARTS:
-    Not(in=in[3], out=notA);
-    Not(in=in[2], out=notB);
-    Not(in=in[1], out=notC);
-    Not(in=in[0], out=notD);
-
-    And(a=notA, b=notB, out=tmp1);
-    And(a=tmp1, b=in[1], out=tmp2);
-    And(a=tmp2, b=notD, out=m2);
-
-    And(a=in[3], b=notB, out=tmp3);
-    And(a=tmp3, b=in[1], out=tmp4);
-    And(a=tmp4, b=in[0], out=m11);
-
-    And(a=in[3], b=in[2], out=tmp5);
-    And(a=tmp5, b=notC, out=tmp6);
-    And(a=tmp6, b=notD, out=m12);
-
-    And(a=in[3], b=in[2], out=tmp7);
-    And(a=tmp7, b=in[1], out=tmp8);
-    And(a=tmp8, b=notD, out=m14);
-
-    And(a=in[3], b=in[2], out=tmp9);
-    And(a=tmp9, b=in[1], out=tmp10);
-    And(a=tmp10, b=in[0], out=m15);
-
-    Or(a=m2, b=m11, out=or1);
-    Or(a=m12, b=m14, out=or2);
-    Or(a=or1, b=or2, out=or3);
-    Or(a=or3, b=m15, out=c_off);
-    Not(in=c_off, out=c);
+    Nand(a=in[3], b=in[3], out=not_in3);
+    Nand(a=in[2], b=in[2], out=not_in2);
+    Nand(a=in[3], b=not_in2, out=in3_and_notin2);
+    Nand(a=in[3], b=in[2], out=in3_and_in2);
+    Nand(a=in3_and_in2, b=in[0], out=in3_and_in2_and_in0);
+    Nand(a=not_in3, b=in3_and_notin2, out=temp1);
+    Nand(a=temp1, b=temp1, out=or_result1);
+    Nand(a=or_result1, b=in3_and_in2_and_in0, out=temp2);
+    Nand(a=temp2, b=temp2, out=c);
 }
