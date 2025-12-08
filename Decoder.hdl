@@ -1,79 +1,29 @@
 CHIP Decoder {
     IN in[4];
-    OUT a, b, c, d, e, f, g;
+    OUT a,b,c,d,e,f,g;
     PARTS:
-    DecoderSegment(in=in, a=a);
+    And(a=in[0], b=in[1], c=in[2], d=in[3], out=tmp1);
+    And(a=!in[0], b=in[1], c=in[2], d=in[3], out=tmp2);
+    And(a=in[0], b=!in[1], c=in[2], d=in[3], out=tmp3);
+    And(a=!in[0], b=!in[1], c=in[2], d=in[3], out=tmp4);
+    And(a=in[0], b=in[1], c=!in[2], d=in[3], out=tmp5);
+    And(a=!in[0], b=in[1], c=!in[2], d=in[3], out=tmp6);
+    And(a=in[0], b=!in[1], c=!in[2], d=in[3], out=tmp7);
+    And(a=!in[0], b=!in[1], c=!in[2], d=in[3], out=tmp8);
+    And(a=in[0], b=in[1], c=in[2], d=!in[3], out=tmp9);
+    And(a=!in[0], b=in[1], c=in[2], d=!in[3], out=tmp10);
+    And(a=in[0], b=!in[1], c=in[2], d=!in[3], out=tmp11);
+    And(a=!in[0], b=!in[1], c=in[2], d=!in[3], out=tmp12);
+    And(a=in[0], b=in[1], c=!in[2], d=!in[3], out=tmp13);
+    And(a=!in[0], b=in[1], c=!in[2], d=!in[3], out=tmp14);
+    And(a=in[0], b=!in[1], c=!in[2], d=!in[3], out=tmp15);
+    And(a=!in[0], b=!in[1], c=!in[2], d=!in[3], out=tmp16);
 
-    Not(in=in[0], out=notIn0);
-    Not(in=in[1], out=notIn1);
-    Not(in=in[2], out=notIn2);
-    Not(in=in[3], out=notIn3);
-    
-    And(a=notIn3, b=notIn1, out=term1);
-    And(a=notIn2, b=notIn1, out=term2);
-    And(a=notIn3, b=notIn2, out=term3);
-    And(a=in[3], b=in[2], out=temp1);
-    And(a=temp1, b=notIn0, out=term4);
-    Or(a=term1, b=term2, out=or1);
-    Or(a=or1, b=term3, out=or2);
-    Or(a=or2, b=term4, out=b);
-
-    Not(in=in[0], out=notIn0_c);
-    Not(in=in[1], out=notIn1_c);
-    Not(in=in[2], out=notIn2_c);
-    Not(in=in[3], out=notIn3_c);
-    
-    And(a=notIn3_c, b=notIn2_c, out=term1_c);
-    And(a=notIn3_c, b=notIn0_c, out=term2_c);
-    And(a=in[3_c], b=notIn1_c, out=term3_c);
-    Or(a=term1_c, b=term2_c, out=or1_c);
-    Or(a=or1_c, b=term3_c, out=c);
-
-    Not(in=in[0], out=notIn0_d);
-    Not(in=in[1], out=notIn1_d);
-    Not(in=in[2], out=notIn2_d);
-    Not(in=in[3], out=notIn3_d);
-    
-    And(a=notIn1_d, b=notIn3_d, out=term1_d);
-    And(a=notIn1_d, b=notIn2_d, out=term2_d);
-    And(a=notIn2_d, b=notIn3_d, out=term3_d);
-    And(a=in[3_d], b=in[2_d], out=temp1_d);
-    And(a=temp1_d, b=notIn0_d, out=term4_d);
-    Or(a=term1_d, b=term2_d, out=or1_d);
-    Or(a=or1_d, b=term3_d, out=or2_d);
-    Or(a=or2_d, b=term4_d, out=d);
-
-    Not(in=in[0], out=notIn0_e);
-    Not(in=in[1], out=notIn1_e);
-    Not(in=in[2], out=notIn2_e);
-    Not(in=in[3], out=notIn3_e);
-    
-    And(a=notIn1_e, b=notIn3_e, out=term1_e);
-    And(a=notIn2_e, b=notIn3_e, out=term2_e);
-    And(a=in[3_e], b=notIn0_e, out=term3_e);
-    Or(a=term1_e, b=term2_e, out=or1_e);
-    Or(a=or1_e, b=term3_e, out=e);
-
-    Not(in=in[0], out=notIn0_f);
-    Not(in=in[1], out=notIn1_f);
-    Not(in=in[2], out=notIn2_f);
-    Not(in=in[3], out=notIn3_f);
-    
-    And(a=notIn1_f, b=notIn2_f, out=term1_f);
-    And(a=notIn3_f, b=notIn0_f, out=term2_f);
-    And(a=in[3_f], b=in[1_f], out=term3_f);
-    Or(a=term1_f, b=term2_f, out=or1_f);
-    Or(a=or1_f, b=term3_f, out=f);
-
-    Not(in=in[0], out=notIn0_g);
-    Not(in=in[1], out=notIn1_g);
-    Not(in=in[2], out=notIn2_g);
-    Not(in=in[3], out=notIn3_g);
-    
-    And(a=notIn1_g, b=notIn3_g, out=term1_g);
-    And(a=notIn2_g, b=notIn3_g, out=term2_g);
-    And(a=in[3_g], b=in[2_g], out=temp1_g);
-    And(a=temp1_g, b=notIn0_g, out=term3_g);
-    Or(a=term1_g, b=term2_g, out=or1_g);
-    Or(a=or1_g, b=term3_g, out=g);
+    Or(a=tmp2, b=tmp4, c=tmp6, d=tmp8, e=tmp10, f=tmp12, g=tmp14, h=tmp16, out=a);
+    Or(a=tmp1, b=tmp3, c=tmp5, d=tmp7, e=tmp9, f=tmp11, g=tmp13, h=tmp15, out=b);
+    Or(a=tmp1, b=tmp3, c=tmp5, d=tmp7, e=tmp9, f=tmp11, g=tmp13, h=tmp15, out=c);
+    Or(a=tmp2, b=tmp4, c=tmp6, d=tmp8, e=tmp10, f=tmp12, g=tmp14, out=d);
+    Or(a=tmp2, b=tmp4, c=tmp6, d=tmp8, e=tmp10, out=e);
+    Or(a=tmp2, b=tmp4, c=tmp6, d=tmp8, out=f);
+    Or(a=tmp1, b=tmp3, c=tmp5, d=tmp7, e=tmp9, f=tmp11, g=tmp13, out=g);
 }
