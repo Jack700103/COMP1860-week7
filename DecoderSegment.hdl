@@ -1,25 +1,15 @@
 CHIP DecoderSegment {
     IN in[4];
-    OUT out;
-
+    OUT c;
+    
     PARTS:
-    Not(in=in[3], out=nota); 
-    Not(in=in[2], out=notb); 
-    Not(in=in[1], out=notc); 
-    Not(in=in[0], out=notd); 
 
-    And(a=notb, b=notd, out=term1);
+    Not(in=in[3], out=not3);
+    Not(in=in[2], out=not2);
+    Not(in=in[1], out=not1);
+    Not(in=in[0], out=not0);
 
-    And(a=nota, b=in[2], out=w1);
-    And(a=w1, b=notc, out=term2);
-
-    And(a=in[3], b=notb, out=w2);
-    And(a=w2, b=notc, out=term3);
-
-    And(a=nota, b=notb, out=w3);
-    And(a=w3, b=in[0], out=term4);
-
-    Or(a=term1, b=term2, out=or12);
-    Or(a=term3, b=term4, out=or34);
-    Or(a=or12, b=or34, out=out);
+    Or(a=not0, b=not1, out=term1);
+    And(a=in[2], b=not3, out=term2);
+    Or(a=term1, b=term2, out=c);
 }
