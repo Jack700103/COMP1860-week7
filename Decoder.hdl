@@ -1,64 +1,152 @@
 CHIP Decoder {
     IN in[4];
     OUT a, b, c, d, e, f, g;
-
+    
     PARTS:
-    Not(in=in[0], out=notD);
-    Not(in=in[1], out=notC);
-    Not(in=in[2], out=notB);
-    Not(in=in[3], out=notA);
+    Not(in=in[0], out=not0);
+    Not(in=in[1], out=not1);
+    Not(in=in[2], out=not2);
+    Not(in=in[3], out=not3);
 
-    And(a=notA, b=notB, out=t1); And(a=t1, b=notC, out=t2); And(a=t2, b=in[0], out=m1_a);
-    And(a=notA, b=in[2], out=t3); And(a=t3, b=notC, out=t4); And(a=t4, b=notD, out=m4_a);
-    And(a=notA, b=in[2], out=t5); And(a=t5, b=in[1], out=t6); And(a=t6, b=in[0], out=m7_a);
-    And(a=in[3], b=in[2], out=t7); And(a=t7, b=in[1], out=t8); And(a=t8, b=in[0], out=m15_a);
-    Or(a=m1_a, b=m4_a, out=oa1); Or(a=m7_a, b=m15_a, out=oa2); Or(a=oa1, b=oa2, out=a_off); Not(in=a_off, out=a);
+    And(a=not3, b=not2, out=and00);
+    And(a=not1, b=not0, out=and01);
+    And(a=and00, b=and01, out=digit0);
 
-    And(a=notA, b=notB, out=t9); And(a=t9, b=notC, out=t10); And(a=t10, b=notD, out=m0_b);
-    And(a=notA, b=notB, out=t11); And(a=t11, b=notC, out=t12); And(a=t12, b=in[0], out=m1_b);
-    And(a=notA, b=in[2], out=t13); And(a=t13, b=in[1], out=t14); And(a=t14, b=in[0], out=m7_b);
-    And(a=in[3], b=in[2], out=t15); And(a=t15, b=notC, out=t16); And(a=t16, b=notD, out=m12_b);
-    Or(a=m0_b, b=m1_b, out=ob1); Or(a=m7_b, b=m12_b, out=ob2); Or(a=ob1, b=ob2, out=b_off); Not(in=b_off, out=b);
+    And(a=not3, b=not2, out=and10);
+    And(a=not1, b=in[0], out=and11);
+    And(a=and10, b=and11, out=digit1);
 
-    And(a=notA, b=notB, out=t17); And(a=t17, b=in[1], out=t18); And(a=t18, b=notD, out=m2_c);
-    And(a=in[3], b=notB, out=t19); And(a=t19, b=in[1], out=t20); And(a=t20, b=in[0], out=m11_c);
-    And(a=in[3], b=in[2], out=t21); And(a=t21, b=notC, out=t22); And(a=t22, b=notD, out=m12_c);
-    And(a=in[3], b=in[2], out=t23); And(a=t23, b=in[1], out=t24); And(a=t24, b=notD, out=m14_c);
-    And(a=in[3], b=in[2], out=t25); And(a=t25, b=in[1], out=t26); And(a=t26, b=in[0], out=m15_c);
-    Or(a=m2_c, b=m11_c, out=oc1); Or(a=m12_c, b=m14_c, out=oc2); Or(a=oc1, b=oc2, out=oc3); Or(a=oc3, b=m15_c, out=c_off); Not(in=c_off, out=c);
+    And(a=not3, b=not2, out=and20);
+    And(a=in[1], b=not0, out=and21);
+    And(a=and20, b=and21, out=digit2);
 
-    And(a=notA, b=notB, out=t27); And(a=t27, b=notC, out=t28); And(a=t28, b=in[0], out=m1_d);
-    And(a=notA, b=notB, out=t29); And(a=t29, b=in[1], out=t30); And(a=t30, b=in[0], out=m3_d);
-    And(a=notA, b=in[2], out=t31); And(a=t31, b=notC, out=t32); And(a=t32, b=notD, out=m4_d);
-    And(a=notA, b=in[2], out=t33); And(a=t33, b=notC, out=t34); And(a=t34, b=in[0], out=m5_d);
-    And(a=notA, b=in[2], out=t35); And(a=t35, b=in[1], out=t36); And(a=t36, b=in[0], out=m7_d);
-    And(a=in[3], b=notB, out=t37); And(a=t37, b=notC, out=t38); And(a=t38, b=in[0], out=m9_d);
-    And(a=in[3], b=in[2], out=t39); And(a=t39, b=in[1], out=t40); And(a=t40, b=in[0], out=m15_d);
-    Or(a=m1_d, b=m3_d, out=od1); Or(a=m4_d, b=m5_d, out=od2); Or(a=m7_d, b=m9_d, out=od3);
-    Or(a=od1, b=od2, out=od4); Or(a=od3, b=m15_d, out=od5); Or(a=od4, b=od5, out=d_off); Not(in=d_off, out=d);
+    And(a=not3, b=not2, out=and30);
+    And(a=in[1], b=in[0], out=and31);
+    And(a=and30, b=and31, out=digit3);
 
-    And(a=notA, b=notB, out=t41); And(a=t41, b=notC, out=t42); And(a=t42, b=in[0], out=m1_e);
-    And(a=notA, b=in[2], out=t43); And(a=t43, b=notC, out=t44); And(a=t44, b=notD, out=m4_e);
-    And(a=in[3], b=notB, out=t45); And(a=t45, b=in[1], out=t46); And(a=t46, b=in[0], out=m11_e);
-    And(a=in[3], b=notB, out=t47); And(a=t47, b=in[1], out=t48); And(a=t48, b=notD, out=m13_e);
-    Or(a=m1_e, b=m4_e, out=oe1); Or(a=m11_e, b=m13_e, out=oe2); Or(a=oe1, b=oe2, out=e_off); Not(in=e_off, out=e);
+    And(a=not3, b=in[2], out=and40);
+    And(a=not1, b=not0, out=and41);
+    And(a=and40, b=and41, out=digit4);
 
-    And(a=notA, b=notB, out=t49); And(a=t49, b=in[1], out=t50); And(a=t50, b=notD, out=m2_f);
-    And(a=notA, b=in[2], out=t51); And(a=t51, b=notC, out=t52); And(a=t52, b=in[0], out=m5_f);
-    And(a=notA, b=in[2], out=t53); And(a=t53, b=in[1], out=t54); And(a=t54, b=notD, out=m6_f);
-    And(a=in[3], b=notB, out=t55); And(a=t55, b=in[1], out=t56); And(a=t56, b=in[0], out=m11_f);
-    And(a=in[3], b=in[2], out=t57); And(a=t57, b=notC, out=t58); And(a=t58, b=notD, out=m12_f);
-    And(a=in[3], b=in[2], out=t59); And(a=t59, b=in[1], out=t60); And(a=t60, b=notD, out=m14_f);
-    And(a=in[3], b=in[2], out=t61); And(a=t61, b=in[1], out=t62); And(a=t62, b=in[0], out=m15_f);
-    Or(a=m2_f, b=m5_f, out=of1); Or(a=m6_f, b=m11_f, out=of2); Or(a=m12_f, b=m14_f, out=of3);
-    Or(a=of1, b=of2, out=of4); Or(a=of3, b=m15_f, out=of5); Or(a=of4, b=of5, out=f_off); Not(in=f_off, out=f);
+    And(a=not3, b=in[2], out=and50);
+    And(a=not1, b=in[0], out=and51);
+    And(a=and50, b=and51, out=digit5);
 
-    And(a=notA, b=notB, out=t63); And(a=t63, b=notC, out=t64); And(a=t64, b=in[0], out=m1_g);
-    And(a=notA, b=notB, out=t65); And(a=t65, b=in[1], out=t66); And(a=t66, b=in[0], out=m3_g);
-    And(a=notA, b=in[2], out=t67); And(a=t67, b=notC, out=t68); And(a=t68, b=notD, out=m4_g);
-    And(a=notA, b=in[2], out=t69); And(a=t69, b=notC, out=t70); And(a=t70, b=in[0], out=m5_g);
-    And(a=notA, b=in[2], out=t71); And(a=t71, b=in[1], out=t72); And(a=t72, b=in[0], out=m7_g);
-    And(a=in[3], b=notB, out=t73); And(a=t73, b=notC, out=t74); And(a=t74, b=in[0], out=m9_g);
-    Or(a=m1_g, b=m3_g, out=og1); Or(a=m4_g, b=m5_g, out=og2); Or(a=m7_g, b=m9_g, out=og3);
-    Or(a=og1, b=og2, out=og4); Or(a=og3, b=og4, out=g_off); Not(in=g_off, out=g);
+    And(a=not3, b=in[2], out=and60);
+    And(a=in[1], b=not0, out=and61);
+    And(a=and60, b=and61, out=digit6);
+
+    And(a=not3, b=in[2], out=and70);
+    And(a=in[1], b=in[0], out=and71);
+    And(a=and70, b=and71, out=digit7);
+
+    And(a=in[3], b=not2, out=and80);
+    And(a=not1, b=not0, out=and81);
+    And(a=and80, b=and81, out=digit8);
+
+    And(a=in[3], b=not2, out=and90);
+    And(a=not1, b=in[0], out=and91);
+    And(a=and90, b=and91, out=digit9);
+
+    And(a=in[3], b=not2, out=andA0);
+    And(a=in[1], b=not0, out=andA1);
+    And(a=andA0, b=andA1, out=digitA);
+
+    And(a=in[3], b=not2, out=andB0);
+    And(a=in[1], b=in[0], out=andB1);
+    And(a=andB0, b=andB1, out=digitB);
+
+    And(a=in[3], b=in[2], out=andC0);
+    And(a=not1, b=not0, out=andC1);
+    And(a=andC0, b=andC1, out=digitC);
+
+    And(a=in[3], b=in[2], out=andD0);
+    And(a=not1, b=in[0], out=andD1);
+    And(a=andD0, b=andD1, out=digitD);
+
+    And(a=in[3], b=in[2], out=andE0);
+    And(a=in[1], b=not0, out=andE1);
+    And(a=andE0, b=andE1, out=digitE);
+
+    And(a=in[3], b=in[2], out=andF0);
+    And(a=in[1], b=in[0], out=andF1);
+    And(a=andF0, b=andF1, out=digitF);
+
+    Or(a=digit0, b=digit2, out=ora1);
+    Or(a=ora1, b=digit3, out=ora2);
+    Or(a=ora2, b=digit5, out=ora3);
+    Or(a=ora3, b=digit6, out=ora4);
+    Or(a=ora4, b=digit7, out=ora5);
+    Or(a=ora5, b=digit8, out=ora6);
+    Or(a=ora6, b=digit9, out=ora7);
+    Or(a=ora7, b=digitA, out=ora8);
+    Or(a=ora8, b=digitC, out=ora9);
+    Or(a=ora9, b=digitE, out=ora10);
+    Or(a=ora10, b=digitF, out=a);
+
+    Or(a=digit0, b=digit1, out=orb1);
+    Or(a=orb1, b=digit2, out=orb2);
+    Or(a=orb2, b=digit3, out=orb3);
+    Or(a=orb3, b=digit4, out=orb4);
+    Or(a=orb4, b=digit7, out=orb5);
+    Or(a=orb5, b=digit8, out=orb6);
+    Or(a=orb6, b=digit9, out=orb7);
+    Or(a=orb7, b=digitA, out=orb8);
+    Or(a=orb8, b=digitD, out=b);
+
+    Or(a=digit0, b=digit1, out=orc1);
+    Or(a=orc1, b=digit3, out=orc2);
+    Or(a=orc2, b=digit4, out=orc3);
+    Or(a=orc3, b=digit5, out=orc4);
+    Or(a=orc4, b=digit6, out=orc5);
+    Or(a=orc5, b=digit7, out=orc6);
+    Or(a=orc6, b=digit8, out=orc7);
+    Or(a=orc7, b=digit9, out=orc8);
+    Or(a=orc8, b=digitA, out=orc9);
+    Or(a=orc9, b=digitB, out=orc10);
+    Or(a=orc10, b=digitD, out=c);
+
+    Or(a=digit0, b=digit2, out=ord1);
+    Or(a=ord1, b=digit3, out=ord2);
+    Or(a=ord2, b=digit5, out=ord3);
+    Or(a=ord3, b=digit6, out=ord4);
+    Or(a=ord4, b=digit8, out=ord5);
+    Or(a=ord5, b=digit9, out=ord6);
+    Or(a=ord6, b=digitB, out=ord7);
+    Or(a=ord7, b=digitC, out=ord8);
+    Or(a=ord8, b=digitD, out=ord9);
+    Or(a=ord9, b=digitE, out=d);
+
+    Or(a=digit0, b=digit2, out=ore1);
+    Or(a=ore1, b=digit6, out=ore2);
+    Or(a=ore2, b=digit8, out=ore3);
+    Or(a=ore3, b=digitA, out=ore4);
+    Or(a=ore4, b=digitB, out=ore5);
+    Or(a=ore5, b=digitC, out=ore6);
+    Or(a=ore6, b=digitD, out=ore7);
+    Or(a=ore7, b=digitE, out=ore8);
+    Or(a=ore8, b=digitF, out=e);
+
+    Or(a=digit0, b=digit4, out=orf1);
+    Or(a=orf1, b=digit5, out=orf2);
+    Or(a=orf2, b=digit6, out=orf3);
+    Or(a=orf3, b=digit8, out=orf4);
+    Or(a=orf4, b=digit9, out=orf5);
+    Or(a=orf5, b=digitA, out=orf6);
+    Or(a=orf6, b=digitB, out=orf7);
+    Or(a=orf7, b=digitC, out=orf8);
+    Or(a=orf8, b=digitE, out=orf9);
+    Or(a=orf9, b=digitF, out=f);
+
+    Or(a=digit2, b=digit3, out=org1);
+    Or(a=org1, b=digit4, out=org2);
+    Or(a=org2, b=digit5, out=org3);
+    Or(a=org3, b=digit6, out=org4);
+    Or(a=org4, b=digit8, out=org5);
+    Or(a=org5, b=digit9, out=org6);
+    Or(a=org6, b=digitA, out=org7);
+    Or(a=org7, b=digitB, out=org8);
+    Or(a=org8, b=digitD, out=org9);
+    Or(a=org9, b=digitE, out=org10);
+    Or(a=org10, b=digitF, out=g);
 }
