@@ -7,71 +7,71 @@ CHIP Decoder {
     Not(in=in[1], out=not1);
     Not(in=in[2], out=not2);
     Not(in=in[3], out=not3);
-
+    
     And(a=not3, b=not2, out=and00);
     And(a=not1, b=not0, out=and01);
     And(a=and00, b=and01, out=digit0);
-
+    
     And(a=not3, b=not2, out=and10);
     And(a=not1, b=in[0], out=and11);
     And(a=and10, b=and11, out=digit1);
-
+    
     And(a=not3, b=not2, out=and20);
     And(a=in[1], b=not0, out=and21);
     And(a=and20, b=and21, out=digit2);
-
+    
     And(a=not3, b=not2, out=and30);
     And(a=in[1], b=in[0], out=and31);
     And(a=and30, b=and31, out=digit3);
-
+    
     And(a=not3, b=in[2], out=and40);
     And(a=not1, b=not0, out=and41);
     And(a=and40, b=and41, out=digit4);
-
+    
     And(a=not3, b=in[2], out=and50);
     And(a=not1, b=in[0], out=and51);
     And(a=and50, b=and51, out=digit5);
-
+    
     And(a=not3, b=in[2], out=and60);
     And(a=in[1], b=not0, out=and61);
     And(a=and60, b=and61, out=digit6);
-
+    
     And(a=not3, b=in[2], out=and70);
     And(a=in[1], b=in[0], out=and71);
     And(a=and70, b=and71, out=digit7);
-
+    
     And(a=in[3], b=not2, out=and80);
     And(a=not1, b=not0, out=and81);
     And(a=and80, b=and81, out=digit8);
-
+    
     And(a=in[3], b=not2, out=and90);
     And(a=not1, b=in[0], out=and91);
     And(a=and90, b=and91, out=digit9);
-
+    
     And(a=in[3], b=not2, out=andA0);
     And(a=in[1], b=not0, out=andA1);
     And(a=andA0, b=andA1, out=digitA);
-
+    
     And(a=in[3], b=not2, out=andB0);
     And(a=in[1], b=in[0], out=andB1);
     And(a=andB0, b=andB1, out=digitB);
-
+    
     And(a=in[3], b=in[2], out=andC0);
     And(a=not1, b=not0, out=andC1);
     And(a=andC0, b=andC1, out=digitC);
-
+    
     And(a=in[3], b=in[2], out=andD0);
     And(a=not1, b=in[0], out=andD1);
     And(a=andD0, b=andD1, out=digitD);
-
+    
     And(a=in[3], b=in[2], out=andE0);
     And(a=in[1], b=not0, out=andE1);
     And(a=andE0, b=andE1, out=digitE);
-
+    
     And(a=in[3], b=in[2], out=andF0);
     And(a=in[1], b=in[0], out=andF1);
     And(a=andF0, b=andF1, out=digitF);
-
+    
     Or(a=digit0, b=digit2, out=ora1);
     Or(a=ora1, b=digit3, out=ora2);
     Or(a=ora2, b=digit5, out=ora3);
@@ -83,7 +83,7 @@ CHIP Decoder {
     Or(a=ora8, b=digitC, out=ora9);
     Or(a=ora9, b=digitE, out=ora10);
     Or(a=ora10, b=digitF, out=a);
-
+    
     Or(a=digit0, b=digit1, out=orb1);
     Or(a=orb1, b=digit2, out=orb2);
     Or(a=orb2, b=digit3, out=orb3);
@@ -93,7 +93,7 @@ CHIP Decoder {
     Or(a=orb6, b=digit9, out=orb7);
     Or(a=orb7, b=digitA, out=orb8);
     Or(a=orb8, b=digitD, out=b);
-
+    
     Or(a=digit0, b=digit1, out=orc1);
     Or(a=orc1, b=digit3, out=orc2);
     Or(a=orc2, b=digit4, out=orc3);
@@ -105,7 +105,7 @@ CHIP Decoder {
     Or(a=orc8, b=digitA, out=orc9);
     Or(a=orc9, b=digitB, out=orc10);
     Or(a=orc10, b=digitD, out=c);
-
+    
     Or(a=digit0, b=digit2, out=ord1);
     Or(a=ord1, b=digit3, out=ord2);
     Or(a=ord2, b=digit5, out=ord3);
