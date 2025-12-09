@@ -1,107 +1,15 @@
 CHIP Decoder {
     IN in[4];
     OUT a, b, c, d, e, f, g;
+
     PARTS:
-    Not(in=in[0], out=notIn0);
-    Not(in=in[1], out=notIn1);
-    Not(in=in[2], out=notIn2);
-    Not(in=in[3], out=notIn3);
-    
-    And(a=notIn3, b=notIn2, out=part2);
-
-    And(a=in[3], b=in[2], out=temp1);
-    And(a=temp1, b=notIn0, out=part3);
-    
-    Or(a=notIn1, b=part2, out=or1);
-
-    Or(a=or1, b=part3, out=a);
-    
-    Not(in=in[0], out=notIn0_b);
-    Not(in=in[1], out=notIn1_b);
-    Not(in=in[2], out=notIn2_b);
-    Not(in=in[3], out=notIn3_b);
-    
-    And(a=notIn3_b, b=notIn2_b, out=part2_b);
-
-    And(a=in[3], b=notIn2_b, out=temp1_b);
-    And(a=temp1_b, b=notIn0_b, out=part3_b);
-    
-    Or(a=notIn1_b, b=part2_b, out=or1_b);
-
-    Or(a=or1_b, b=part3_b, out=b);
-    
-    Not(in=in[0], out=notIn0_c);
-    Not(in=in[1], out=notIn1_c);
-    Not(in=in[2], out=notIn2_c);
-    Not(in=in[3], out=notIn3_c);
-    
-    And(a=notIn3_c, b=notIn2_c, out=part1_c);
-
-    And(a=notIn3_c, b=notIn0_c, out=part2_c);
-
-    And(a=in[3], b=notIn1_c, out=part3_c);
-    
-    Or(a=part1_c, b=part2_c, out=or1_c);
-    Or(a=or1_c, b=part3_c, out=c);
-    
-    Not(in=in[0], out=notIn0_d);
-    Not(in=in[1], out=notIn1_d);
-    Not(in=in[2], out=notIn2_d);
-    Not(in=in[3], out=notIn3_d);
-    
-    And(a=notIn1_d, b=notIn3_d, out=part1_d);
-
-    And(a=notIn1_d, b=notIn2_d, out=part2_d);
-
-    And(a=notIn2_d, b=notIn3_d, out=part3_d);
-
-    And(a=in[3], b=in[2], out=temp1_d);
-    And(a=temp1_d, b=notIn0_d, out=part4_d);
-    
-    Or(a=part1_d, b=part2_d, out=or1_d);
-    Or(a=or1_d, b=part3_d, out=or2_d);
-    Or(a=or2_d, b=part4_d, out=d);
-    
-    Not(in=in[0], out=notIn0_e);
-    Not(in=in[1], out=notIn1_e);
-    Not(in=in[2], out=notIn2_e);
-    Not(in=in[3], out=notIn3_e);
-    
-    And(a=notIn1_e, b=notIn3_e, out=part1_e);
-
-    And(a=notIn2_e, b=notIn3_e, out=part2_e);
-
-    And(a=in[3], b=notIn0_e, out=part3_e);
-    
-    Or(a=part1_e, b=part2_e, out=or1_e);
-    Or(a=or1_e, b=part3_e, out=e);
-    
-    Not(in=in[0], out=notIn0_f);
-    Not(in=in[1], out=notIn1_f);
-    Not(in=in[2], out=notIn2_f);
-    Not(in=in[3], out=notIn3_f);
-    
-    And(a=notIn1_f, b=notIn2_f, out=part1_f);
-
-    And(a=notIn3_f, b=notIn0_f, out=part2_f);
-
-    And(a=in[3], b=in[1], out=part3_f);
-    
-    Or(a=part1_f, b=part2_f, out=or1_f);
-    Or(a=or1_f, b=part3_f, out=f);
-    
-    Not(in=in[0], out=notIn0_g);
-    Not(in=in[1], out=notIn1_g);
-    Not(in=in[2], out=notIn2_g);
-    Not(in=in[3], out=notIn3_g);
-    
-    And(a=notIn1_g, b=notIn3_g, out=part1_g);
-
-    And(a=notIn2_g, b=notIn3_g, out=part2_g);
-
-    And(a=in[3], b=in[2], out=temp1_g);
-    And(a=temp1_g, b=notIn0_g, out=part3_g);
-
-    Or(a=part1_g, b=part2_g, out=or1_g);
-    Or(a=or1_g, b=part3_g, out=g);
+    // Instantiate the decoder for each segment.
+    // Each sub-chip takes the same 4-bit input and outputs its specific segment signal.
+    Decoder_a(in=in, out=a);
+    Decoder_b(in=in, out=b);
+    Decoder_c(in=in, out=c);
+    Decoder_d(in=in, out=d);
+    Decoder_e(in=in, out=e);
+    Decoder_f(in=in, out=f);
+    Decoder_g(in=in, out=g);
 }

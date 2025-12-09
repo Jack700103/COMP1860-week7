@@ -1,32 +1,25 @@
 CHIP DecoderSegment {
     IN in[4];
-    OUT c;
-    
+    OUT out;
+
     PARTS:
-    Not(in=in[3], out=not3);
-    Not(in=in[2], out=not2);
-    Not(in=in[1], out=not1);
-    Not(in=in[0], out=not0);
+    Not(in=in[3], out=nota); 
+    Not(in=in[2], out=notb); 
+    Not(in=in[1], out=notc); 
+    Not(in=in[0], out=notd); 
 
-    And(a=not3, b=not2, out=case1_temp1);
-    And(a=in[1], b=not0, out=case1_temp2);
-    And(a=case1_temp1, b=case1_temp2, out=case1);
+    And(a=notb, b=notd, out=term1);
 
-    And(a=in[3], b=in[2], out=case2_temp1);
-    And(a=not1, b=not0, out=case2_temp2);
-    And(a=case2_temp1, b=case2_temp2, out=case2);
+    And(a=nota, b=in[2], out=w1);
+    And(a=w1, b=notc, out=term2);
 
-    And(a=in[3], b=in[2], out=case3_temp1);
-    And(a=in[1], b=not0, out=case3_temp2);
-    And(a=case3_temp1, b=case3_temp2, out=case3);
+    And(a=in[3], b=notb, out=w2);
+    And(a=w2, b=notc, out=term3);
 
-    And(a=in[3], b=in[2], out=case4_temp1);
-    And(a=in[1], b=in[0], out=case4_temp2);
-    And(a=case4_temp1, b=case4_temp2, out=case4);
+    And(a=nota, b=notb, out=w3);
+    And(a=w3, b=in[0], out=term4);
 
-    Or(a=case1, b=case2, out=or1);
-    Or(a=or1, b=case3, out=or2);
-    Or(a=or2, b=case4, out=not_c);
-
-    Not(in=not_c, out=c);
+    Or(a=term1, b=term2, out=or12);
+    Or(a=term3, b=term4, out=or34);
+    Or(a=or12, b=or34, out=out);
 }
