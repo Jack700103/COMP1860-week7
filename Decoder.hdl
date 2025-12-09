@@ -3,95 +3,75 @@ CHIP Decoder {
     OUT a, b, c, d, e, f, g;
     
     PARTS:
-    // 获取输入的反相信号
     Not(in=in[3], out=not3);
     Not(in=in[2], out=not2);
     Not(in=in[1], out=not1);
     Not(in=in[0], out=not0);
     
-    // 生成每个数字的识别信号
-    // 数字0 (0000)
     And(a=not3, b=not2, out=and00);
     And(a=not1, b=not0, out=and01);
     And(a=and00, b=and01, out=digit0);
     
-    // 数字1 (0001)
     And(a=not3, b=not2, out=and10);
     And(a=not1, b=in[0], out=and11);
     And(a=and10, b=and11, out=digit1);
     
-    // 数字2 (0010)
     And(a=not3, b=not2, out=and20);
     And(a=in[1], b=not0, out=and21);
     And(a=and20, b=and21, out=digit2);
     
-    // 数字3 (0011)
     And(a=not3, b=not2, out=and30);
     And(a=in[1], b=in[0], out=and31);
     And(a=and30, b=and31, out=digit3);
     
-    // 数字4 (0100)
     And(a=not3, b=in[2], out=and40);
     And(a=not1, b=not0, out=and41);
     And(a=and40, b=and41, out=digit4);
     
-    // 数字5 (0101)
     And(a=not3, b=in[2], out=and50);
     And(a=not1, b=in[0], out=and51);
     And(a=and50, b=and51, out=digit5);
     
-    // 数字6 (0110)
     And(a=not3, b=in[2], out=and60);
     And(a=in[1], b=not0, out=and61);
     And(a=and60, b=and61, out=digit6);
     
-    // 数字7 (0111)
     And(a=not3, b=in[2], out=and70);
     And(a=in[1], b=in[0], out=and71);
     And(a=and70, b=and71, out=digit7);
     
-    // 数字8 (1000)
     And(a=in[3], b=not2, out=and80);
     And(a=not1, b=not0, out=and81);
     And(a=and80, b=and81, out=digit8);
     
-    // 数字9 (1001)
     And(a=in[3], b=not2, out=and90);
     And(a=not1, b=in[0], out=and91);
     And(a=and90, b=and91, out=digit9);
     
-    // 数字A (1010)
     And(a=in[3], b=not2, out=andA0);
     And(a=in[1], b=not0, out=andA1);
     And(a=andA0, b=andA1, out=digitA);
     
-    // 数字b (1011)
     And(a=in[3], b=not2, out=andB0);
     And(a=in[1], b=in[0], out=andB1);
     And(a=andB0, b=andB1, out=digitB);
     
-    // 数字C (1100)
     And(a=in[3], b=in[2], out=andC0);
     And(a=not1, b=not0, out=andC1);
     And(a=andC0, b=andC1, out=digitC);
     
-    // 数字d (1101)
     And(a=in[3], b=in[2], out=andD0);
     And(a=not1, b=in[0], out=andD1);
     And(a=andD0, b=andD1, out=digitD);
     
-    // 数字E (1110)
     And(a=in[3], b=in[2], out=andE0);
     And(a=in[1], b=not0, out=andE1);
     And(a=andE0, b=andE1, out=digitE);
     
-    // 数字F (1111)
     And(a=in[3], b=in[2], out=andF0);
     And(a=in[1], b=in[0], out=andF1);
     And(a=andF0, b=andF1, out=digitF);
     
-    // 根据映射关系计算每个输出
-    // a段（下横线）：在以下数字点亮：0,2,3,5,6,8,9,b,C,d,E
     Or(a=digit0, b=digit2, out=ora1);
     Or(a=ora1, b=digit3, out=ora2);
     Or(a=ora2, b=digit5, out=ora3);
@@ -103,8 +83,6 @@ CHIP Decoder {
     Or(a=ora8, b=digitD, out=ora9);
     Or(a=ora9, b=digitE, out=a);
     
-    // b段（中间横线）：在以下数字点亮：2,3,4,5,6,8,9,A,b,C,E,F
-    // 修正：数字C应该点亮，数字d不应该点亮
     Or(a=digit2, b=digit3, out=orb1);
     Or(a=orb1, b=digit4, out=orb2);
     Or(a=orb2, b=digit5, out=orb3);
@@ -113,11 +91,10 @@ CHIP Decoder {
     Or(a=orb5, b=digit9, out=orb6);
     Or(a=orb6, b=digitA, out=orb7);
     Or(a=orb7, b=digitB, out=orb8);
-    Or(a=orb8, b=digitC, out=orb9);    // 添加C
-    Or(a=orb9, b=digitE, out=orb10);   // 移除d
+    Or(a=orb8, b=digitD, out=orb9);    
+    Or(a=orb9, b=digitE, out=orb10);   
     Or(a=orb10, b=digitF, out=b);
-    
-    // c段（右下竖线）：在以下数字点亮：0,1,3,4,5,6,7,8,9,A,b,d
+
     Or(a=digit0, b=digit1, out=orc1);
     Or(a=orc1, b=digit3, out=orc2);
     Or(a=orc2, b=digit4, out=orc3);
@@ -130,7 +107,6 @@ CHIP Decoder {
     Or(a=orc9, b=digitB, out=orc10);
     Or(a=orc10, b=digitD, out=c);
     
-    // d段（左上竖线）：在以下数字点亮：0,4,5,6,8,9,A,b,C,E,F
     Or(a=digit0, b=digit4, out=ord1);
     Or(a=ord1, b=digit5, out=ord2);
     Or(a=ord2, b=digit6, out=ord3);
@@ -142,7 +118,6 @@ CHIP Decoder {
     Or(a=ord8, b=digitE, out=ord9);
     Or(a=ord9, b=digitF, out=d);
     
-    // e段（上横线）：在以下数字点亮：0,2,3,5,6,7,8,9,A,C,E,F
     Or(a=digit0, b=digit2, out=ore1);
     Or(a=ore1, b=digit3, out=ore2);
     Or(a=ore2, b=digit5, out=ore3);
@@ -155,7 +130,6 @@ CHIP Decoder {
     Or(a=ore9, b=digitE, out=ore10);
     Or(a=ore10, b=digitF, out=e);
     
-    // f段（右上竖线）：在以下数字点亮：0,1,2,3,4,7,8,9,A,d
     Or(a=digit0, b=digit1, out=orf1);
     Or(a=orf1, b=digit2, out=orf2);
     Or(a=orf2, b=digit3, out=orf3);
@@ -166,7 +140,6 @@ CHIP Decoder {
     Or(a=orf7, b=digitA, out=orf8);
     Or(a=orf8, b=digitD, out=f);
     
-    // g段（左下竖线）：在以下数字点亮：0,2,6,8,A,b,C,d,E,F
     Or(a=digit0, b=digit2, out=org1);
     Or(a=org1, b=digit6, out=org2);
     Or(a=org2, b=digit8, out=org3);
